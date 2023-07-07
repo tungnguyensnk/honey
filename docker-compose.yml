@@ -1,0 +1,202 @@
+version: "3.8"
+services:
+  s1:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=1
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s2:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=2
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s3:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=3
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s4:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=4
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s5:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=5
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s6:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=6
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s7:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=7
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s8:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=8
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s9:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=9
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+  s10:
+    build:
+      context: ./honeygain
+      dockerfile: Dockerfile
+    image: honeygain
+    privileged: true
+    environment:
+      - DEVICE_ID=10
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - mitmproxy
+
+  mitmproxy:
+    build:
+      context: ./mitmproxy
+      dockerfile: Dockerfile
+    image: mitmproxy
+    privileged: true
+    tty: true
+    volumes:
+      - mitmproxy:/root/.mitmproxy
+    networks:
+      - default
+    depends_on:
+      - gost
+  gost:
+    image: gogost/gost:latest
+    tty: true
+    command:
+      - -L
+      - socks5://:40000
+      - -F
+      - sshd://$SSH_USER:$SSH_PASSWORD@$SSH_HOST:22
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
+volumes:
+  mitmproxy:
+    driver: local
