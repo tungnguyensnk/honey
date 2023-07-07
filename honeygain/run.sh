@@ -53,7 +53,9 @@ iptables -t nat -A HONEYGAIN2 -d 240.0.0.0/4 -j RETURN
 iptables -t nat -A HONEYGAIN2 -p tcp -j REDIRECT --to-ports 12346
 
 # áp dụng chain HONEYGAIN2 cho user root  -d 104.26.12.49/16,172.67.71.104/16
-iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner root,mitmproxy -j HONEYGAIN2
+iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner root -j HONEYGAIN2
+# reject udp
+iptables -t nat -A OUTPUT -p udp -m owner --uid-owner root -j REJECT --reject-with icmp-port-unreachable
 
 # tạo file cấu hình redsocks.conf
 cat << EOF > redsocks2.conf
