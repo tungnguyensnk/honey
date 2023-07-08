@@ -189,7 +189,7 @@ services:
     tty: true
     command:
       - -L
-      - socks5://:40000
+      - https://:40000
       - -F
       - socks5://sshpass:40000
     networks:

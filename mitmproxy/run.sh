@@ -37,4 +37,4 @@ redsocks {
 }
 EOF
 redsocks -c redsocks.conf
-mitmdump -s /app/mitm.py -p 8080 --set ssl_insecure=true --mode socks5
+mitmdump -s /app/mitm.py -p 8080 --set ssl_insecure=true --allow-hosts '104.26.*.*' --allow-hosts '172.67.*.*'
