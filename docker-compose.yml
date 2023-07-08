@@ -191,9 +191,20 @@ services:
       - -L
       - socks5://:40000
       - -F
-      - sshd://$SSH_USER:$SSH_PASSWORD@$SSH_HOST:22
+      - socks5://sshpass:40000
     networks:
       - default
+    depends_on:
+      - sshpass
+  sshpass:
+    build:
+      context: ./sshpass
+      dockerfile: Dockerfile
+    image: sshpass
+    networks:
+      - default
+    env_file:
+      - ./.env
 networks:
   default:
     driver: bridge

@@ -31,7 +31,7 @@ base {
 redsocks {
  local_ip = 127.0.0.1;
  local_port = 54321;
- ip = gost;
+ ip = sshpass;
  port = 40000;
  type = socks5;
 }
