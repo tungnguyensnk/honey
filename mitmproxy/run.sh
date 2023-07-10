@@ -17,7 +17,6 @@ iptables -t nat -A MITMPROXY -p tcp -j REDIRECT --to-ports 54321
 
 # áp dụng chain MITMPROXY cho user root  -d 104.26.12.49/16,172.67.71.104/16
 iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner root -j MITMPROXY
-iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner mitmproxy -j MITMPROXY
 
 # tạo file cấu hình redsocks.conf
 cat << EOF > redsocks.conf
@@ -37,4 +36,4 @@ redsocks {
 }
 EOF
 redsocks -c redsocks.conf
-mitmdump -s /app/mitm.py -p 8080 --set ssl_insecure=true --allow-hosts '104.*.*.*' --allow-hosts '172.67.*.*'
+mitmdump -s /app/mitm.py -p 8080 --set ssl_insecure=true --mode socks5 --allow-hosts '104.26.*.*' --allow-hosts '172.67.*.*'

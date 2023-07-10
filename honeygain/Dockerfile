@@ -1,19 +1,18 @@
-FROM ubuntu:jammy-20230605
-
-RUN apt-get update && apt-get install -y \
-    redsocks \
-    iptables \
+FROM alpine:latest
+RUN apk update && apk add --no-cache \
     curl \
-#    psmisc \
-    && rm -rf /var/lib/apt/lists/*
+    iptables \
+    redsocks \
+    gcompat \
+    libstdc++ \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
 COPY honeygain /app/honeygain
 COPY ./libhg.so* /usr/lib/
 ENV LD_LIBRARY_PATH=/usr/lib
-COPY run.sh /app/run.sh
 
 RUN chmod +x /app/honeygain
-RUN chmod +x /app/run.sh
-ENTRYPOINT ["/bin/sh", "-c", "/app/run.sh"]
+ENTRYPOINT ["/bin/sh"]

@@ -32,15 +32,15 @@ redsocks {
  local_port = 12345;
  ip = mitmproxy;
  port = 8080;
- type = http-connect;
+ type = socks5;
 }
 EOF
 
 # thêm cert của mitmproxy vào hệ thống
 cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy.crt
 update-ca-certificates
-if [ "$DEVICE_ID" = "1" ]; then
-  while sleep 3; do curl https://api.honeygain.com/api/v1/users/me --header 'x-api-request: true'; done > /dev/null 2>&1 &
-fi
+#if [ "$DEVICE_ID" = "1" ]; then
+#  while sleep 3; do curl https://api.honeygain.com/api/v1/users/me --header 'x-api-request: true'; done > /dev/null 2>&1 &
+#fi
 redsocks -c redsocks.conf
 ./honeygain -tou-accept -email "$EMAIL" -pass "$PASSWORD" -device "$DEVICE_ID"

@@ -1,213 +1,189 @@
 version: "3.8"
 services:
-  s1:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=1
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s2:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=2
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s3:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=3
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s4:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=4
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s5:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=5
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s6:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=6
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s7:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=7
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s8:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=8
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s9:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=9
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-  s10:
-    build:
-      context: ./honeygain
-      dockerfile: Dockerfile
-    image: honeygain
-    privileged: true
-    environment:
-      - DEVICE_ID=10
-    env_file:
-      - ./.env
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - mitmproxy
-
-  mitmproxy:
-    build:
-      context: ./mitmproxy
-      dockerfile: Dockerfile
-    image: mitmproxy
-    privileged: true
-    tty: true
-    volumes:
-      - mitmproxy:/root/.mitmproxy
-    networks:
-      - default
-    depends_on:
-      - gost
-  gost:
-    image: gogost/gost:latest
-    tty: true
-    command:
-      - -L
-      - https://:40000
-      - -F
-      - socks5://sshpass:40000
-    networks:
-      - default
-    depends_on:
-      - sshpass
-  sshpass:
-    build:
-      context: ./sshpass
-      dockerfile: Dockerfile
-    image: sshpass
-    networks:
-      - default
-    env_file:
-      - ./.env
+    s1:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=1
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s2:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=2
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s3:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=3
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s4:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=4
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s5:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=5
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s6:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=6
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s7:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=7
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s8:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=8
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s9:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=9
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    s10:
+        image: tungnguyensnk/honeygain-plus:latest
+        privileged: true
+        command:
+            -   ./run.sh
+        environment:
+            - DEVICE_ID=10
+        env_file:
+            - ./.env
+        volumes:
+            - mitmproxy:/root/.mitmproxy/
+            - ./honeygain/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - mitmproxy
+    mitmproxy:
+        image: tungnguyensnk/mitmproxy-plus:latest
+        privileged: true
+        tty: true
+        command:
+            -  ./run.sh
+        volumes:
+            - mitmproxy:/root/.mitmproxy
+            - ./mitmproxy/run.sh:/app/run.sh
+        networks:
+            - default
+        depends_on:
+            - sshpass
+    sshpass:
+        image: tungnguyensnk/sshpass-plus:latest
+        networks:
+            - default
+        env_file:
+            - ./.env
+        volumes:
+            - ./sshpass/run.sh:/app/run.sh
 networks:
-  default:
-    driver: bridge
+    default:
+        driver: bridge
 volumes:
-  mitmproxy:
-    driver: local
+    mitmproxy:
+        driver: local

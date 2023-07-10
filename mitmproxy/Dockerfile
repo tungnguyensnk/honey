@@ -1,17 +1,15 @@
-FROM mitmproxy/mitmproxy:dev
-
-RUN apt-get update && apt-get install -y \
-    redsocks \
-    iptables \
+FROM alpine:latest
+RUN apk update && apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing \
     curl \
-#    psmisc \
+    iptables \
+    redsocks \
+    mitmproxy \
     && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
 COPY mitm.py /app/mitm.py
-COPY run.sh /app/run.sh
 
 RUN chmod +x /app/mitm.py
-RUN chmod +x /app/run.sh
-ENTRYPOINT ["/bin/sh", "-c", "/app/run.sh"]
+ENTRYPOINT ["/bin/sh"]
